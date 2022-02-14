@@ -20,6 +20,7 @@
 #include "ToolChains/Contiki.h"
 #include "ToolChains/CrossWindows.h"
 #include "ToolChains/Cuda.h"
+#include "ToolChains/Cykusz.h"
 #include "ToolChains/Darwin.h"
 #include "ToolChains/DragonFly.h"
 #include "ToolChains/FreeBSD.h"
@@ -6224,6 +6225,9 @@ const ToolChain &Driver::getToolChain(const ArgList &Args,
       break;
     case llvm::Triple::Fuchsia:
       TC = std::make_unique<toolchains::Fuchsia>(*this, Target, Args);
+      break;
+    case llvm::Triple::Cykusz:
+      TC = std::make_unique<toolchains::Cykusz>(*this, Target, Args);
       break;
     case llvm::Triple::Solaris:
       TC = std::make_unique<toolchains::Solaris>(*this, Target, Args);

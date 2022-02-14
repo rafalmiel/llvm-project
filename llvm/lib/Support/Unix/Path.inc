@@ -74,7 +74,7 @@ extern char **environ;
 
 #include <sys/types.h>
 #if !defined(__APPLE__) && !defined(__OpenBSD__) && !defined(__FreeBSD__) &&   \
-    !defined(__linux__) && !defined(__FreeBSD_kernel__) && !defined(_AIX)
+    !defined(__linux__) && !defined(__FreeBSD_kernel__) && !defined(_AIX) && !defined(__cykusz__)
 #include <sys/statvfs.h>
 #define STATVFS statvfs
 #define FSTATVFS fstatvfs
@@ -83,7 +83,7 @@ extern char **environ;
 #if defined(__OpenBSD__) || defined(__FreeBSD__)
 #include <sys/mount.h>
 #include <sys/param.h>
-#elif defined(__linux__)
+#elif defined(__linux__) || defined(__cykusz__)
 #if defined(HAVE_LINUX_MAGIC_H)
 #include <linux/magic.h>
 #else
@@ -129,7 +129,7 @@ const file_t kInvalidFile = -1;
 #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) ||     \
     defined(__minix) || defined(__FreeBSD_kernel__) || defined(__linux__) ||   \
     defined(__CYGWIN__) || defined(__DragonFly__) || defined(_AIX) ||          \
-    defined(__GNU__) || (defined(__sun__) && defined(__svr4__))
+    defined(__GNU__) || (defined(__sun__) && defined(__svr4__)) || defined(__cykusz__)
 static int test_dir(char ret[PATH_MAX], const char *dir, const char *bin) {
   struct stat sb;
   char fullpath[PATH_MAX];
@@ -191,7 +191,11 @@ static char *getprogpath(char ret[PATH_MAX], const char *bin) {
 /// GetMainExecutable - Return the path to the main executable, given the
 /// value of argv[0] from program startup.
 std::string getMainExecutable(const char *argv0, void *MainAddr) {
-#if defined(__APPLE__)
+#if defined(__cykusz__)
+  char exe_path[PATH_MAX];
+  if (getprogpath(exe_path, argv0) != NULL)
+    return exe_path;
+#elif defined(__APPLE__)
   // On OS X the executable path is saved to the stack by dyld. Reading it
   // from there is much faster than calling dladdr, especially for large
   // binaries with symbols.
@@ -472,7 +476,7 @@ std::error_code remove(const Twine &path, bool IgnoreNonExisting) {
 }
 
 static bool is_local_impl(struct STATVFS &Vfs) {
-#if defined(__linux__) || defined(__GNU__)
+#if defined(__linux__) || defined(__GNU__) || defined(__cykusz__)
 #ifndef NFS_SUPER_MAGIC
 #define NFS_SUPER_MAGIC 0x6969
 #endif

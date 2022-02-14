@@ -187,6 +187,7 @@ public:
 
     Ananas,
     CloudABI,
+    Cykusz,
     Darwin,
     DragonFly,
     FreeBSD,
@@ -276,7 +277,9 @@ public:
     Mesh,
     Amplification,
     OpenHOS,
-    LastEnvironmentType = OpenHOS
+    Kernel,
+    System,
+    LastEnvironmentType = System
   };
   enum ObjectFormatType {
     UnknownObjectFormat,

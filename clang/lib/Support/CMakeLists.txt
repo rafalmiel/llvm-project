@@ -18,7 +18,8 @@ add_clang_library(clangSupport ${clangSupport_sources})
 if (NOT XCODE)
   add_library(clangSupport_tablegen ALIAS obj.clangSupport)
 elseif (NOT LLVM_LINK_LLVM_DYLIB)
-  add_library(clangSupport_tablegen ALIAS clangSupport)
+  add_library(clangSupport_tablegen ALIAS clangSupport
+          ../Driver/ToolChains/Cykusz.h)
 else()
   # Build a version of the support library that does not link against
   # libLLVM-*.so, to be used by clang-tblgen. This is so clang-tblgen doesn't

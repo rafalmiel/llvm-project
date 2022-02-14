@@ -212,6 +212,7 @@ StringRef Triple::getOSTypeName(OSType Kind) {
   case CUDA: return "cuda";
   case CloudABI: return "cloudabi";
   case Contiki: return "contiki";
+  case Cykusz: return "cykusz";
   case Darwin: return "darwin";
   case DragonFly: return "dragonfly";
   case DriverKit: return "driverkit";
@@ -293,6 +294,8 @@ StringRef Triple::getEnvironmentTypeName(EnvironmentType Kind) {
   case Mesh: return "mesh";
   case Amplification: return "amplification";
   case OpenHOS: return "ohos";
+  case Kernel: return "kernel";
+  case System: return "system";
   }
 
   llvm_unreachable("Invalid EnvironmentType!");
@@ -577,6 +580,7 @@ static Triple::OSType parseOS(StringRef OSName) {
   return StringSwitch<Triple::OSType>(OSName)
     .StartsWith("ananas", Triple::Ananas)
     .StartsWith("cloudabi", Triple::CloudABI)
+    .StartsWith("cykusz", Triple::Cykusz)
     .StartsWith("darwin", Triple::Darwin)
     .StartsWith("dragonfly", Triple::DragonFly)
     .StartsWith("freebsd", Triple::FreeBSD)
@@ -661,6 +665,8 @@ static Triple::EnvironmentType parseEnvironment(StringRef EnvironmentName) {
       .StartsWith("mesh", Triple::Mesh)
       .StartsWith("amplification", Triple::Amplification)
       .StartsWith("ohos", Triple::OpenHOS)
+      .StartsWith("kernel", Triple::Kernel)
+      .StartsWith("system", Triple::System)
       .Default(Triple::UnknownEnvironment);
 }
 

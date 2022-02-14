@@ -612,6 +612,9 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
     case llvm::Triple::CloudABI:
       return std::make_unique<CloudABITargetInfo<X86_64TargetInfo>>(Triple,
                                                                     Opts);
+    case llvm::Triple::Cykusz:
+      return std::make_unique<CykuszTargetInfo<X86_64TargetInfo>>(Triple,
+                                                                  Opts);
     case llvm::Triple::Linux: {
       switch (Triple.getEnvironment()) {
       default:
