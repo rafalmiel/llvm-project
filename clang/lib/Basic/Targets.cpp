@@ -617,6 +617,9 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
         return std::make_unique<OHOSX86_64TargetInfo>(Triple, Opts);
       }
     }
+    case llvm::Triple::Cykusz:
+      return std::make_unique<CykuszTargetInfo<X86_64TargetInfo>>(Triple,
+                                                                  Opts);
     case llvm::Triple::DragonFly:
       return std::make_unique<DragonFlyBSDTargetInfo<X86_64TargetInfo>>(Triple,
                                                                         Opts);

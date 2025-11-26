@@ -32,6 +32,7 @@
 #include <errno.h>
 #include <sys/ldr.h>
 #else
+#define _GNU_SOURCE 1
 #include <dlfcn.h>
 #endif
 

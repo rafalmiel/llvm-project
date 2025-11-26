@@ -212,6 +212,7 @@ bool InitHeaderSearch::ShouldAddDefaultIncludePaths(
     const llvm::Triple &triple) {
   switch (triple.getOS()) {
   case llvm::Triple::AIX:
+  case llvm::Triple::Cykusz:
   case llvm::Triple::DragonFly:
   case llvm::Triple::ELFIAMCU:
   case llvm::Triple::Emscripten:

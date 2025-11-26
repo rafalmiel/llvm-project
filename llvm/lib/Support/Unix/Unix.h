@@ -39,6 +39,7 @@
 #include <sys/time.h>
 #include <time.h>
 
+#define _GNU_SOURCE 1
 #include <dlfcn.h>
 
 # include <fcntl.h>

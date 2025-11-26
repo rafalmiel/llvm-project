@@ -202,6 +202,7 @@ public:
   enum OSType {
     UnknownOS,
 
+    Cykusz,
     Darwin,
     DragonFly,
     FreeBSD,
@@ -861,6 +862,8 @@ public:
   }
 
   bool isVulkanOS() const { return getOS() == Triple::Vulkan; }
+
+  bool isOSCykusz() const { return getOS() == Triple::Cykusz; }
 
   bool isOSManagarm() const { return getOS() == Triple::Managarm; }
 
